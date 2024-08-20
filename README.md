@@ -8,9 +8,9 @@ This repository contains scripts for performing batch processing with Pandas and
 
 - **Batch_Processing_with_Pandas.py**: A Python script that demonstrates batch processing using the Pandas library. This script reads datasets, performs batch processing, and outputs the processed data.
   
-- **Batch_Processing_with_Spark.py**: A Python script for batch processing using Apache Spark. This script basically outputs the same output as the batch processing with Pandas python file.
+- **Batch_Processing_with_Spark.py**: A Python script for batch processing using Apache Spark. This script utilise Kafka for storing data before processing them. And instead of using Pandas DataFrame, this code uses Spark DataFrame for processing data.
   
-- **Micro-batch_Processing_with_Spark_Streaming.py**: This script demonstrates micro-batch processing using Spark Streaming. It processes streaming data in small, continuous batches, reading and processing data every second.
+- **Micro-batch_Processing_with_Spark_Streaming.py**: This script demonstrates micro-batch processing using Spark Streaming. It processes streaming data in small, continuous batches, reading and processing data every second with 3 Spark Worker nodes distribution.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ Before running the scripts, ensure you have the following installed:
 
 - Python 3.x
 - Apache Spark
-- Docker and Docker Compose (for setting up the environment)
+- Docker 4.3x
 
 ## Usage
 
@@ -57,11 +57,6 @@ Before running the scripts, ensure you have the following installed:
 1. **Spark Streaming**:
    - Ensure Spark is installed (installed by default) and properly configured.
    - Access to Jupyter container and paste the `Micro-batch_Processing_with_Spark_Streaming.py`, and run the code.
-
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
