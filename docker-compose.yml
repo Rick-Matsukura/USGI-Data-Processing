@@ -1,0 +1,119 @@
+version: '3'
+services:
+  spark-master:
+    image: bitnami/spark:3.3.0
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_PORT_NUMBER=7077
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - 8080:8080
+      - 7077:7077
+    networks:
+      - spark-network
+
+  spark-worker-1:
+    image: bitnami/spark:3.3.0
+    container_name: spark-worker-1
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    depends_on:
+      - spark-master
+    networks:
+      - spark-network
+
+  spark-worker-2:
+    image: bitnami/spark:3.3.0
+    container_name: spark-worker-2
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    depends_on:
+      - spark-master
+    networks:
+      - spark-network
+
+  spark-worker-3:
+    image: bitnami/spark:3.3.0
+    container_name: spark-worker-3
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    depends_on:
+      - spark-master
+    networks:
+      - spark-network
+
+  jupyter:
+    image: jupyter/pyspark-notebook:spark-3.3.0
+    user: root
+    container_name: jupyter
+    ports:
+      - 8888:8888
+      - 4040:4040
+    volumes:
+      - streaming_data:/home/jovyan/work:rw
+    environment:
+      JUPYTER_PORT: 8888
+      SPARK_UI_PORT: 4040
+      GRANT_SUDO: yes
+    networks:
+      - spark-network
+    entrypoint: /bin/bash -c "\
+      apt-get update && apt-get install -y gdal-bin libgdal-dev && pip install matplotlib confluent_kafka && \
+      start-notebook.sh --NotebookApp.token=''"
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+    networks:
+      - spark-network
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+    volumes:
+      - streaming_data:/data:rw
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_CREATE_TOPICS="raw:1:1"
+    networks:
+      - spark-network
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: always
+    networks:
+      - spark-network
+
+volumes:
+  streaming_data:
+  portainer_data:
+
+networks:
+  spark-network:
