@@ -34,8 +34,8 @@ Before running the scripts, ensure you have the following installed:
 2. **Accessing Jupyter Notebook**:
    - After the services are up and running, access the Jupyter Notebook by navigating to `http://localhost:8888` in your web browser. No token is required to access the notebook.
 
-3. **Running Spark Jobs**:
-   - You can submit Spark jobs either through the command line or directly from the Jupyter notebook.
+3. **Running Python Files**:
+   - You can access to Jupyter container and paste Python files to execute batch processing and micro-batch processing.
 
 4. **Kafka and Zookeeper**:
    - Kafka and Zookeeper are included for handling streaming data. Kafka topics can be managed via connecting to Kafka container on terminal with the the following command:
