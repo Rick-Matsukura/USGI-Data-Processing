@@ -43,18 +43,20 @@ Before running the scripts, ensure you have the following installed:
      docker exec -it <kafka_container_id> /bin/bash
      ```
 
-### Running the Batch Processing Scripts
+### Running the Batch Processing with Pandas Scripts
 
-1. **Pandas DataFrame**:
+**Pandas DataFrame**:
    - Access to Jupyter container and paste the `Batch_Processing_with_Pandas.py`, and run the code.
 
-2. **Spark DataFrame**:
+### Running the Batch Processing with Spark Scripts
+
+**Spark DataFrame**:
    - Ensure Spark is installed (installed by default) and properly configured.
    - Access to Jupyter container and paste the `Batch_Processing_with_Spark.py`, and run the code.
 
-### Running the Micro-batch Processing Script
+### Running the Micro-batch Processing with Spark Streaming Script
 
-1. **Spark Streaming**:
+**Spark Streaming**:
    - Ensure Spark is installed (installed by default) and properly configured.
    - Access to Jupyter container and paste the `Micro-batch_Processing_with_Spark_Streaming.py`, and run the code.
 
