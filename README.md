@@ -18,7 +18,7 @@ Before running the scripts, ensure you have the following installed:
 
 - Python 3.x
 - Apache Spark
-- Docker and Docker Compose (for setting up the environment)
+- Docker
 
 ## Usage
 
