@@ -1,4 +1,4 @@
-# Batch and Micro-batch Processing with Pandas, Spark, and Spark Streaming
+# Batch Processing with Pandas and Spark, and Micro-batch with Spark Streaming
 
 This repository contains scripts for performing batch processing with Pandas and Apache Spark, as well as micro-batch processing using Spark Streaming. The repository also includes a `docker-compose.yml` file to set up a distributed processing environment using Docker.
 
