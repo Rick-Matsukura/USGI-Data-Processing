@@ -1,16 +1,16 @@
-# Batch Processing with Pandas and Spark, and Micro-batch with Spark Streaming
+# Batch and Micro-batch Processing with Pandas, Spark, and Spark Streaming
 
-This repository contains scripts for performing batch processing with Pandas and Apache Spark, as well as micro-batch processing using Spark Streaming. The repository also includes a `docker-compose.yml` file to set up a distributed processing environment using Docker.
+This repository contains scripts for performing batch processing with Pandas and Apache Spark, as well as micro-batch processing using Spark Streaming. The repository also includes a `docker-compose.yml` file to set up a executing environment with distributed computing implementation using Docker.
 
 ## Contents
 
-- **Batch_Processing_with_Pandas.py**: A Python script that demonstrates batch processing using the Pandas library. This script reads large datasets, performs data transformations, and outputs the processed data.
+- **docker-compose.yml**: A Docker Compose configuration file that sets up a executing environment for 3 python files below, containing Spark cluster with one master and three worker nodes, along with additional services like Kafka, and Zookeeper to support streaming and interactive analysis.
+
+- **Batch_Processing_with_Pandas.py**: A Python script that demonstrates batch processing using the Pandas library. This script reads datasets, performs batch processing, and outputs the processed data.
   
-- **Batch_Processing_with_Spark.py**: A Python script for batch processing using Apache Spark. It leverages Spark's distributed computing capabilities to efficiently process large datasets.
+- **Batch_Processing_with_Spark.py**: A Python script for batch processing using Apache Spark. This script basically outputs the same output as the batch processing with Pandas python file.
   
-- **Micro-batch_Processing_with_Spark_Streaming.py**: This script demonstrates micro-batch processing using Spark Streaming. It processes streaming data in small, continuous batches, enabling near real-time data analysis.
-  
-- **docker-compose.yml**: A Docker Compose configuration file that sets up a Spark cluster with one master and three worker nodes, along with additional services like Jupyter, Kafka, and Zookeeper to support streaming and interactive analysis.
+- **Micro-batch_Processing_with_Spark_Streaming.py**: This script demonstrates micro-batch processing using Spark Streaming. It processes streaming data in small, continuous batches, reading and processing data every second.
 
 ## Prerequisites
 
@@ -18,39 +18,15 @@ Before running the scripts, ensure you have the following installed:
 
 - Python 3.x
 - Apache Spark
-- Docker
+- Docker and Docker Compose (for setting up the environment)
 
 ## Usage
-
-### Running the Batch Processing Scripts
-
-1. **Pandas Batch Processing**:
-   - Run the `Batch_Processing_with_Pandas.py` script using Python:
-     ```bash
-     python Batch_Processing_with_Pandas.py
-     ```
-
-2. **Spark Batch Processing**:
-   - Ensure Spark is installed and properly configured.
-   - Run the `Batch_Processing_with_Spark.py` script:
-     ```bash
-     spark-submit Batch_Processing_with_Spark.py
-     ```
-
-### Running the Micro-batch Processing Script
-
-1. **Spark Streaming**:
-   - Ensure your Spark environment is configured for streaming.
-   - Run the `Micro-batch_Processing_with_Spark_Streaming.py` script:
-     ```bash
-     spark-submit Micro-batch_Processing_with_Spark_Streaming.py
-     ```
 
 ### Using Docker Compose
 
 1. **Start the Docker Environment**:
    - Navigate to the directory containing the `docker-compose.yml` file.
-   - Start the Spark cluster and related services by running:
+   - Run the following command to set up the environment:
      ```bash
      docker-compose up
      ```
@@ -62,7 +38,26 @@ Before running the scripts, ensure you have the following installed:
    - You can submit Spark jobs either through the command line or directly from the Jupyter notebook.
 
 4. **Kafka and Zookeeper**:
-   - Kafka and Zookeeper are included for handling streaming data. Kafka topics can be managed via the `docker-compose.yml` configuration.
+   - Kafka and Zookeeper are included for handling streaming data. Kafka topics can be managed via connecting to Kafka container on terminal with the the following command:
+     ```bash
+     docker exec -it <kafka_container_id> /bin/bash
+     ```
+
+### Running the Batch Processing Scripts
+
+1. **Pandas DataFrame**:
+   - Access to Jupyter container and paste the `Batch_Processing_with_Pandas.py`, and run the code.
+
+2. **Spark DataFrame**:
+   - Ensure Spark is installed (installed by default) and properly configured.
+   - Access to Jupyter container and paste the `Batch_Processing_with_Spark.py`, and run the code.
+
+### Running the Micro-batch Processing Script
+
+1. **Spark Streaming**:
+   - Ensure Spark is installed (installed by default) and properly configured.
+   - Access to Jupyter container and paste the `Micro-batch_Processing_with_Spark_Streaming.py`, and run the code.
+
 
 ## License
 
